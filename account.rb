@@ -32,9 +32,9 @@ module Bank
       return @balance
     end
 
-    def balance
-      return @balance
-    end
-
   end
 end
+
+# a = Bank::Account.new(1234, 40)
+# o = a.add_owner("danielle", "909 green way", 5555555)
+# o.owner_info
