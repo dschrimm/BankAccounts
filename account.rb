@@ -15,8 +15,8 @@ module Bank
       end
     end
 
-    def add_owner(name, address, phone)
-      Bank::Owner.new(@id, name, address, phone)
+    def add_owner(id, lname, fname, address, city, state)
+      Bank::Owner.new(id, lname, fname, address, city, state)
     end
 
     def withdraw(amount)
