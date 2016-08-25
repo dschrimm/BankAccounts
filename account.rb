@@ -23,11 +23,10 @@ module Bank
     def withdraw(amount)
       if amount <= @balance
         @balance -= amount
-        return @balance
       else
         puts "Your account does not contain enough to withdraw the amount requested."
-        return @balance
       end
+      return @balance
     end
 
     #deposits specified amount
