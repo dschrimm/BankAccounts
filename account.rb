@@ -6,8 +6,8 @@ module Bank
     attr_accessor :id, :balance, :date, :accounts
 
     def initialize(id, balance, date = nil)
-      @id = id
-      @balance = balance
+      @id = id #account id
+      @balance = balance #in cents
       @date = date
 
       unless @balance >= 0
@@ -19,6 +19,7 @@ module Bank
       Bank::Owner.new(id, lname, fname, address, city, state)
     end
 
+    #withdraws specified amount, will not allow withdrawl if remaining balance is less than 0.
     def withdraw(amount)
       if amount <= @balance
         @balance -= amount
@@ -29,6 +30,7 @@ module Bank
       end
     end
 
+    #deposits specified amount
     def deposit(amount)
       @balance += amount
       return @balance
@@ -45,23 +47,25 @@ module Bank
 
     # returns an instance of Account where value of the id matches the parameter
     def self.find(id)
-      self.all.each do |i|
+      all.each do |i|
         if i.id == id
           return i
         end
       end
-      puts "No account with this id number."
+      puts "No account with ID ##{ id }."
+    end
+
+    ### am able to retrieve account/owner information but have not yet been able to associate them and combine stored values ###
+    # creates relationship between accounts and owners
+    def self.acct_with_owner
+      owner_accounts = []
+      CSV.read('support/account_owners.csv').each do |line|
+        puts Account.find(line[0].to_i)
+        puts Owner.find(line[1].to_i)
+        # owner_accounts << (Account.find(line[0].to_i), Owner.find(line[1].to_i))
+      end
+      owner_accounts
     end
 
   end
 end
-
-# a = Bank::Account.new(1234, 40)
-# o = a.add_owner("danielle", "909 green way", 5555555)
-# o.owner_info
-# a.deposit(10)
-# a.balance
-# a.withdraw(60)
-# a.balance
-# a.withdraw(30)
-# a.balance
