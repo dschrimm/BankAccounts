@@ -13,6 +13,7 @@ class SavingsAccount < Bank::Account
     end
   end
 
+  # withdrawl fee $2, must maintain $10 minimum balance in account
   def withdraw(amount)
     transaction_fee = 200
     total_cost = amount + transaction_fee
@@ -24,11 +25,10 @@ class SavingsAccount < Bank::Account
     return @balance
   end
 
+  # add interest rate as specified or default 0.25, returns interest
   def add_interest(rate = 0.25)
     interest = @balance * rate/100
     @balance += interest
     return interest
   end
 end
-
-a = SavingsAccount.new(123, 1001, "hello")
