@@ -3,6 +3,8 @@ require_relative 'owner'
 
 module Bank
   class Account
+    MINIMUM_BALANCE = 0
+
     attr_accessor :id, :balance, :date, :accounts
 
     def initialize(id, balance, date = nil)
@@ -10,8 +12,8 @@ module Bank
       @balance = balance #in cents
       @date = date
 
-      unless @balance >= 0
-        raise ArgumentError.new("A new account cannot be created with initial negative balance.")
+      unless @balance >= Bank::Account::MINIMUM_BALANCE
+        raise ArgumentError.new("A new account cannot be created with less than $#{ MINIMUM_BALANCE }.")
       end
     end
 

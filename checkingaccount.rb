@@ -1,6 +1,8 @@
 require_relative 'account'
 
 class CheckingAccount < Bank::Account
+  TRANSACTION_FEE = 100 # cents
+
   attr_accessor :checks_remaining
 
   def initialize(id, balance, date)
@@ -10,9 +12,8 @@ class CheckingAccount < Bank::Account
 
   # withdrawl with $1 fee, balance cannot go below $0
   def withdraw(amount)
-    transaction_fee = 100 #in cents
-    total_cost = amount + transaction_fee
-    if total_cost <= @balance
+    total_cost = amount + TRANSACTION_FEE
+    if (@balance) - total_cost >= MINIMUM_BALANCE
       @balance -= total_cost
     else
       puts "Your account does not contain enough to withdraw the amount requested."
