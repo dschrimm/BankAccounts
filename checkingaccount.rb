@@ -12,15 +12,10 @@ class CheckingAccount < Bank::Account
     @checks_remaining = 3
   end
 
-  # withdrawl with $1 fee, balance cannot go below $0
+  # withdrawl with transaction fee
   def withdraw(amount)
-    total_cost = amount + TRANSACTION_FEE
-    if (@balance) - total_cost >= MINIMUM_BALANCE
-      @balance -= total_cost
-    else
-      puts "Your account does not contain enough to withdraw the amount requested."
-    end
-    return @balance
+    amount += TRANSACTION_FEE
+    super(amount)
   end
 
   # withdrawl fee activated if more than 3 checks used, overdraft limit
