@@ -23,7 +23,7 @@ module Bank
 
     #withdraws specified amount, will not allow withdrawl if remaining balance is less than 0.
     def withdraw(amount)
-      if amount <= @balance
+      if amount <= @balance && (@balance - amount >= self.class::MINIMUM_BALANCE)
         @balance -= amount
       else
         puts "Your account does not contain enough to withdraw the amount requested."

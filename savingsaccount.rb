@@ -16,18 +16,13 @@ class SavingsAccount < Bank::Account
     end
   end
 
-  # maintain $10 minimum balance in account including transaction fee
+  # maintain minimum balance in account including transaction fee
   def withdraw(amount)
-    total_cost = amount + TRANSACTION_FEE
-    if total_cost <= @balance && @balance - total_cost >=1000
-      @balance -= total_cost
-    else
-      puts "Your account does not contain enough to withdraw the amount requested. You must maintain a $#{ '%.2f' % (self.class::MINIMUM_BALANCE / 100.0) } minimum balance in your Savings Account."
-    end
-    return @balance
+    amount += TRANSACTION_FEE
+    super(amount)
   end
 
-  # add interest rate as specified or default 0.25, returns interest
+  # add interest rate as specified or default, returns interest
   def add_interest(rate = 0.25)
     interest = @balance * rate/100
     @balance += interest
